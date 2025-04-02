@@ -13,6 +13,32 @@ Plato-Java-spring/
 └── plato-state/      - 状态管理服务
 ```
 
+## 项目状态
+
+当前项目开发进度：
+
+- **plato-client**: 大体完成
+- **plato-ipconf**: 大体完成
+- **plato-framework**: 正在用于重构common模块
+- **plato-gateway**: 计划完全重写
+- **plato-state**: 未开工
+
+## 开发指南
+
+1. 克隆仓库：
+   ```bash
+   git clone https://github.com/codeRookieyutaoliu/Plato-Java-spring.git
+   ```
+
+2. 查看Git工作流文档：
+   ```bash
+   cat git-workflow.md
+   ```
+
+3. 按照Git工作流文档创建功能分支并开始开发。
+
+详细的开发流程和规范请参考 [git-workflow.md](./git-workflow.md)。
+
 ## 开发规范
 
 ### 版本管理规范
