@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package plato.common.message;
+
+option java_package = "plato.common.message";
+option java_multiple_files = true;
+option java_outer_classname = "MessageProto";
+
+// 消息类型枚举
+// 对应 Go 版本中的 CmdType
+enum CmdType {
+    LOGIN = 0;       // 登录消息
+    HEARTBEAT = 1;   // 心跳消息
+    RECONNECT = 2;   // 重连消息
+    ACK = 3;         // 确认消息
+    UP = 4;          // 上行消息
+    PUSH = 5;        // 下行/推送消息
+}
+
+// 顶层命令结构
+// 对应 Go 版本中的 MsgCmd
+message MsgCmd {
+    CmdType type = 1;
+    bytes payload = 2;
+}
+
+// 上行消息结构
+// 对应 Go 版本中的 UPMsg
+message UpMsg {
+    UpMsgHead head = 1;
+    bytes body = 2;
+}
+
+// 上行消息头
+// 对应 Go 版本中的 UPMsgHead
+message UpMsgHead {
+    uint64 client_id = 1;
+    uint64 conn_id = 2;
+    string session_id = 3;
+}
+
+// 推送消息
+// 对应 Go 版本中的 PushMsg
+message PushMsg {
+    uint64 msg_id = 1;
+    uint64 session_id = 2;
+    bytes content = 3;
+}
+
+// 确认消息
+// 对应 Go 版本中的 ACKMsg
+message AckMsg {
+    uint32 code = 1;
+    string msg = 2;
+    CmdType type = 3;
+    uint64 conn_id = 4;
+    uint64 client_id = 5;
+    uint64 session_id = 6;
+    uint64 msg_id = 7;
+}
+
+// 登录消息头
+// 对应 Go 版本中的 LoginMsgHead
+message LoginMsgHead {
+    uint64 device_id = 1;
+}
+
+// 登录消息
+// 对应 Go 版本中的 LoginMsg
+message LoginMsg {
+    LoginMsgHead head = 1;
+    bytes body = 2;
+}
+
+// 心跳消息头
+// 对应 Go 版本中的 HeartbeatMsgHead
+message HeartbeatMsgHead {
+    // 心跳消息头暂无字段
+}
+
+// 心跳消息
+message HeartbeatMsg {
+    HeartbeatMsgHead head = 1;
+    // 心跳消息体暂无内容
+}
+
+// 重连消息
+message ReconnectMsg {
+    uint64 conn_id = 1;
+    uint64 client_id = 2;
+    string session_id = 3;
+} 

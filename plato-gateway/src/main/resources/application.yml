@@ -1,0 +1,112 @@
+spring:
+  application:
+    name: plato-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+      config:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+        file-extension: yaml
+    loadbalancer:
+      ribbon:
+        enabled: false
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8901
+
+# 网关配置
+plato:
+  gateway:
+    # 服务器类型（NIO 或 NETTY）
+    server:
+      type: NETTY
+    # TCP服务器端口
+    tcp-server-port: 8900
+    # Boss线程数
+    boss-thread-count: 1
+    # Worker线程数
+    worker-thread-count: 4
+    # 工作池大小
+    worker-pool-size: 1024
+    # 命令通道大小
+    cmd-channel-size: 2048
+    metrics:
+      dir: ./metrics
+      retention-days: 7
+      aggregation:
+        enabled: true
+        window-minutes: 60
+  state:
+    # 状态服务名称
+    service-name: plato-state
+    # 状态服务地址
+    service-endpoint: 127.0.0.1:8902
+
+# TCP服务器配置
+tcp:
+  server:
+    port: 8888
+    boss-thread-count: 1
+    worker-thread-count: 4
+    use-epoll: false
+    idle-timeout-seconds: 300
+    max-frame-length: 65536
+
+# gRPC服务器配置
+grpc:
+  server:
+    port: 8901
+  client:
+    state-service:
+      address: 127.0.0.1
+      port: 8902
+
+# 连接管理配置
+connection:
+  manager:
+    max-idle-time-seconds: 300
+    clean-interval-seconds: 60
+
+# 线程池配置
+thread:
+  pool:
+    event:
+      core-size: 4
+      max-size: 8
+      queue-capacity: 1000
+      keep-alive-seconds: 60
+    work:
+      core-size: 16
+      max-size: 32
+      queue-capacity: 10000
+      keep-alive-seconds: 60
+
+# XXL-Job 配置
+xxl:
+  job:
+    admin:
+      addresses: ${XXL_JOB_ADMIN_ADDRESSES:http://localhost:8080/xxl-job-admin}
+    accessToken: ${XXL_JOB_ACCESS_TOKEN:}
+    executor:
+      appname: ${spring.application.name}
+      address: 
+      ip: 
+      port: 9999
+      logpath: ./logs/xxl-job
+      logretentiondays: 30
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    plato.gateway: DEBUG
+  file:
+    name: ./logs/plato-gateway.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n" 

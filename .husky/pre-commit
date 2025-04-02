@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# 运行lint-staged
+npx lint-staged
+
+# 运行代码格式检查
+mvn checkstyle:check -DskipTests
+
+# 检查项目是否能正常编译
+mvn compile -DskipTests 

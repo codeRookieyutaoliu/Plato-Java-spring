@@ -1,0 +1,38 @@
+spring:
+  shell:
+    history:
+      enabled: true
+    command:
+      version:
+        enabled: true
+    interactive:
+      enabled: true
+    script:
+      enabled: false
+  cloud:
+    nacos:
+      config:
+        import-check:
+          enabled: false
+
+plato:
+  client:
+    # 客户端模式: shell, gui, picocli
+    mode: shell
+    # 服务器主机名或IP地址
+    host: 127.0.0.1
+    # 服务器端口
+    port: 8900
+    # 用户昵称
+    nickname: user
+    # 用户ID（留空则自动生成）
+    user-id: 
+    # 会话ID（留空则使用用户ID）
+    session-id: 
+
+logging:
+  level:
+    root: INFO
+    plato.client: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" 

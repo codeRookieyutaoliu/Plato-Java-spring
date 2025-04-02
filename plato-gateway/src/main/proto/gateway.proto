@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_package = "plato.gateway.rpc";
+option java_multiple_files = true;
+option java_outer_classname = "GatewayProto";
+
+package plato.gateway.rpc;
+
+// Gateway服务
+// 对应Go版本中的gateway/rpc/service/gateway.proto文件
+service Gateway {
+  // 删除连接
+  // 对应Go版本中的DelConn方法
+  rpc delConn(GatewayRequest) returns (GatewayResponse) {}
+  
+  // 推送消息
+  // 对应Go版本中的Push方法
+  rpc push(GatewayRequest) returns (GatewayResponse) {}
+}
+
+// Gateway请求
+// 对应Go版本中的GatewayRequest消息
+message GatewayRequest {
+  // 连接ID
+  // 对应Go版本中的conn_id字段
+  uint64 conn_id = 1;
+  
+  // 数据
+  // 对应Go版本中的data字段
+  bytes data = 2;
+}
+
+// Gateway响应
+// 对应Go版本中的GatewayResponse消息
+message GatewayResponse {
+  // 状态码
+  // 对应Go版本中的code字段
+  int32 code = 1;
+  
+  // 消息
+  // 对应Go版本中的msg字段
+  string msg = 2;
+} 

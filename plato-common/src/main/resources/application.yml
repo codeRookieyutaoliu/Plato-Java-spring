@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: plato
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        namespace: public
+        group: DEFAULT_GROUP
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      timeout: 10000
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
+
+# 日志配置
+logging:
+  level:
+    root: info
+    plato: debug
+    org.springframework.cloud.openfeign: debug
+
+# Feign配置
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true 

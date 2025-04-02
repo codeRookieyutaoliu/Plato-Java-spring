@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# 运行commitlint检查提交信息格式
+npx commitlint --edit $1 

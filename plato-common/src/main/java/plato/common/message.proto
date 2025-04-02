@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package plato.common.idl.message;
+
+option java_package = "plato.common.message";
+option java_multiple_files = true;
+
+enum CmdType {
+    Login = 0;
+    Heartbeat = 1;
+    ReConn = 2;
+    ACK = 3;
+    UP = 4;
+    Push = 5;
+}
+
+message MsgCmd {
+    CmdType type = 1;
+    bytes payload = 2;
+}
+
+message UPMsg {
+    UPMsgHead head = 1;
+    bytes upMsgBody = 2;
+}
+
+message UPMsgHead {
+    uint64 clientId = 1;
+    uint64 connId = 2;
+    string sessionId = 3;
+}
+
+message PushMsg {
+    uint64 msgId = 1;
+    uint64 sessionId = 2;
+    bytes content = 3;
+}
+
+message ACKMsg {
+    uint32 code = 1;
+    string msg = 2;
+    CmdType type = 3;
+    uint64 connId = 4;
+    uint64 clientId = 5;
+    uint64 sessionId = 6;
+    uint64 msgId = 7;
+}
+
+message LoginMsgHead {
+    uint64 deviceId = 1;
+}
+
+message LoginMsg {
+    LoginMsgHead head = 1;
+    bytes loginMsgBody = 2;
+}
+
+message HeartbeatMsgHead {}
+
+message HeartbeatMsg {
+    HeartbeatMsgHead head = 1;
+    bytes heartbeatMsgBody = 2;
+}
+
+message ReConnMsgHead {
+    uint64 connId = 1;
+}
+
+message ReConnMsg {
+    ReConnMsgHead head = 1;
+    bytes reConnMsgBody = 2;
+}

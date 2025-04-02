@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "plato.common.rpc";
+option java_outer_classname = "StateGrpc";
+
+package plato.common.rpc;
+
+// State服务
+// 对应Go版本中的state/rpc/service/state.proto文件
+service State {
+    // 取消连接
+    // 对应Go版本中的CancelConn方法
+    rpc CancelConn (StateRequest) returns (StateResponse) {}
+    
+    // 发送消息
+    // 对应Go版本中的SendMsg方法
+    rpc SendMsg (StateRequest) returns (StateResponse) {}
+}
+
+// State请求
+// 对应Go版本中的StateRequest消息
+message StateRequest {
+    // 端点地址
+    // 对应Go版本中的endpoint字段
+    string endpoint = 1;
+    
+    // 连接ID
+    // 对应Go版本中的conn_id字段
+    uint64 conn_id = 2;
+    
+    // 数据
+    // 对应Go版本中的data字段
+    bytes data = 3;
+}
+
+// State响应
+// 对应Go版本中的StateResponse消息
+message StateResponse {
+    // 状态码
+    // 对应Go版本中的code字段
+    int32 code = 1;
+    
+    // 消息
+    // 对应Go版本中的msg字段
+    string msg = 2;
+} 

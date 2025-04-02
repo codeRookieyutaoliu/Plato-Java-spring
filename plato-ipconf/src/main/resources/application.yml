@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: plato-ipconf
+  config:
+    import: optional:nacos:plato-ipconf.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+        file-extension: yaml
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 10000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      cache-null-values: false
+
+server:
+  port: 8903
+
+# IP配置服务配置
+plato:
+  ipconf:
+    # 网关服务名称
+    gateway-service-name: plato-gateway
+    # 网关TCP端口
+    gateway-tcp-port: 8900
+    # 端点刷新间隔（毫秒）
+    refresh:
+      interval: 60000
+    # 负载均衡配置
+    loadbalancer:
+      # 最大连接数
+      max-connections: 1000
+      # 权重配置
+      weight:
+        # 负载权重
+        load: 0.4
+        # 地理位置权重
+        geo: 0.4
+        # 网络质量权重
+        network: 0.2
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    plato.ipconf: INFO
+    org.springframework.data.redis: INFO
+
+# 禁用commons-logging
+commons-logging:
+  enabled: false
