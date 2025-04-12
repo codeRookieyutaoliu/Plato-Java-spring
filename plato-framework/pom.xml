@@ -15,18 +15,10 @@
     <packaging>pom</packaging>
     
     <modules>
+        <module>plato-protocol</module>
         <module>plato-common</module>
-        <module>plato-message</module>
-        <module>plato-network</module>
-        <module>plato-cache</module>
-        <module>plato-discovery</module>
-        <module>plato-config</module>
-        <module>plato-bus</module>
-        <module>plato-bizflow</module>
-        <module>plato-router</module>
-        <module>plato-rpc</module>
-        <module>plato-timingwheel</module>
-        <module>plato-logger</module>
+
+
     </modules>
     
     <dependencies>
